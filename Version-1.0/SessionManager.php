@@ -102,7 +102,7 @@ class SessionManager{
     ///////////////////////////////////////////////////////////////////
      //setDataInCookieForOneYear method will set a new cookie ((Not : here we use it to set a user info in cookie to use it in login process))
      //$userInfoArray is an user 's information associative array ..... user 's email and his password will be taked from this array
-     //then a cookie with name =  UserEmail and other cookie with name =  UserPassword
+     //then a cookie with name =  UserEmail and other cookie with name =  UserPassword and its expire will be one year
      //$CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
      //$domain is "localhost" by default .... type your domain or use a constant like i did
      //if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
