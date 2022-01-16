@@ -1,5 +1,6 @@
 <?php
 
+//SessionManager v 1.0
 //this class helps you to maage your session and cookie to use it in Authuntication system
 
 class SessionManager{
