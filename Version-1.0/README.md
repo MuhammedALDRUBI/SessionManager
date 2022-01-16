@@ -107,3 +107,11 @@ this method will find a cookie by its name then remove it
 after process is done method will return true
 $cookieName is the cookie name that you want to remove it
 other parameters is the same parameters that found in setDataInCookieForOneYear
+
+<hr>
+
+Don't forget to Support me on :
+
+Facebook : https://www.facebook.com/MDRDevelopment
+
+instagram : https://www.instagram.com/mdr_development_tr
