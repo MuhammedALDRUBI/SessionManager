@@ -1,5 +1,6 @@
 <?php
 
+//this class helps you to maage your session and cookie to use it in Authuntication system
 
 class SessionManager{
 
@@ -100,7 +101,8 @@ class SessionManager{
 
     ///////////////////////////////////////////////////////////////////
      //setDataInCookieForOneYear method will set a new cookie ((Not : here we use it to set a user info in cookie to use it in login process))
-     //$userInfoArray is an user 's information associative array
+     //$userInfoArray is an user 's information associative array ..... user 's email and his password will be taked from this array
+     //then a cookie with name =  UserEmail and other cookie with name =  UserPassword
      //$CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
      //$domain is "localhost" by default .... type your domain or use a constant like i did
      //if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
@@ -123,7 +125,7 @@ class SessionManager{
     //this method will find a cookie by its name then return it if it is found else will return null 
     ///////////////////////////////////////////////////////////////////
 
-    static public function FindDataInCookie($cookieName ){
+    static public function FindDataInCookie($cookieName){
         if(count($_COOKIE) > 0){
             if(isset($_COOKIE[$cookieName])){return $_COOKIE[$cookieName];}
             return null;
@@ -133,6 +135,8 @@ class SessionManager{
     ///////////////////////////////////////////////////////////////////
     //this method will find a cookie by its name then remove it
     // after process is done method will return true
+    //$cookieName is the cookie name that you want to remove it
+    //other parameters is the same parameters that found in setDataInCookieForOneYear
     ///////////////////////////////////////////////////////////////////
     static public function UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
         if(count($_COOKIE) > 0){
