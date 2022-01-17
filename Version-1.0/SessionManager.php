@@ -100,28 +100,29 @@ class SessionManager{
     //Cokkies Methodes
     ///////////////////////////////////////////////////////////////////
 
+    static public function isCookieAvailable(){
+        return count($_COOKIE) > 0;
+    }
     ///////////////////////////////////////////////////////////////////
-     //setDataInCookieForOneYear method will set a new cookie ((Not : here we use it to set a user info in cookie to use it in login process))
-     //$userInfoArray is an user 's information associative array ..... user 's email and his password will be taked from this array
-     //then a cookie with name =  UserEmail and other cookie with name =  UserPassword and its expire will be one year
+     //setDataInCookieForATime method will set a new cookie that defined in specific path and domain
+     //$cookieName is the cookie's name that we want to set it
+     //$cookieValue cookie value that will be stored in $cookieName key
      //$CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
      //$domain is "localhost" by default .... type your domain or use a constant like i did
      //if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
      //if you want to make your cookie only http defined $httpOnly will be true like i did
      //this method will return true or false 
     ///////////////////////////////////////////////////////////////////
-    static public function setDataInCookieForOneYear($userInfoArray , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
+    static public function setDataInCookieForATime($cookieName , $cookieValue , $expire  , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
+        $expire = $expire != null ? $expire : strtotime("+1 week"); // as Default 1 week if hasn't been changed
         if(count($_COOKIE) > 0){
-            $oneYearTime = strtotime("+1 year");
-            setcookie("UserEmail" , $userInfoArray["Email"] , $oneYearTime , $CookiePath , $domain , $httpsStatus , $httpOnly );
-            setcookie("UserPassword" , $userInfoArray["Password"] , $oneYearTime , $CookiePath , $domain , $httpsStatus , $httpOnly );
-            if(self::FindDataInCookie("UserEmail") != null && self::FindDataInCookie("UserPassword") != null){
+            setcookie($cookieName , $cookieValue , $expire , $CookiePath , $domain , $httpsStatus , $httpOnly );
+            if(self::FindDataInCookie($cookieName) != null){
                 return true;
             }
             return false;
         }
     }
-
     ///////////////////////////////////////////////////////////////////
     //this method will find a cookie by its name then return it if it is found else will return null 
     ///////////////////////////////////////////////////////////////////
@@ -137,7 +138,7 @@ class SessionManager{
     //this method will find a cookie by its name then remove it
     // after process is done method will return true
     //$cookieName is the cookie name that you want to remove it
-    //other parameters is the same parameters that found in setDataInCookieForOneYear
+    //other parameters is the same parameters that found in setDataInCookieForATime
     ///////////////////////////////////////////////////////////////////
     static public function UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
         if(count($_COOKIE) > 0){
@@ -148,6 +149,6 @@ class SessionManager{
             return true;
         }
     }
-
+ 
 
 }
