@@ -100,13 +100,16 @@ class SessionManager{
     //Cokkies Methodes
     ///////////////////////////////////////////////////////////////////
 
+    //this method return true if cookie is available and false if else
     static public function isCookieAvailable(){
         return count($_COOKIE) > 0;
     }
+
     ///////////////////////////////////////////////////////////////////
      //setDataInCookieForATime method will set a new cookie that defined in specific path and domain
      //$cookieName is the cookie's name that we want to set it
      //$cookieValue cookie value that will be stored in $cookieName key
+     //$expire value is 1 week by default .... you can use time() or strtotime() buildin methodes to get the value that you want
      //$CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
      //$domain is "localhost" by default .... type your domain or use a constant like i did
      //if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
@@ -149,6 +152,4 @@ class SessionManager{
             return true;
         }
     }
- 
-
 }
