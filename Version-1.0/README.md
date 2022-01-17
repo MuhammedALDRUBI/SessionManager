@@ -10,7 +10,8 @@ usable Methodes :
 - removeKeyFromSession($key)
 - DestroySession($pathToRedirect = "")
 - RedirectToPath($pathToRedirect = "")
-- setDataInCookieForOneYear($userInfoArray , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
+- isCookieAvailable()
+- setDataInCookieForATime($cookieName , $cookieValue , $expire  , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
 - FindDataInCookie($cookieName)
 - UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
 
@@ -75,11 +76,23 @@ if $pathToRedirect is not empty RedirectToPath method will be used to redirect t
 
 <hr>
 
-8 - setDataInCookieForOneYear($userInfoArray , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
+8- isCookieAvailable()
+this method return true if cookie is available and false if else
 
-setDataInCookieForOneYear method will set a new cookie ((Not : here we use it to set a user info in cookie to use it in login process))
-$userInfoArray is an user 's information associative array ..... user 's email and his password will be taked from this array
-then a cookie with name =  UserEmail and other cookie with name =  UserPassword
+ex : 
+if(SessionManager::isCookieAvailable()){
+ echo "Yes , it is available";
+}else{
+ echo "Not , it is not available";
+}
+<hr>
+
+9 - setDataInCookieForATime($cookieName , $cookieValue , $expire  , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
+
+setDataInCookieForATime method will set a new cookie that defined in specific path and domain
+$cookieName is the cookie's name that we want to set it
+$cookieValue cookie value that will be stored in $cookieName key
+$expire value is 1 week by default .... you can use time() or strtotime() buildin methodes to get the value that you want
 $CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
 $domain is "localhost" by default .... type your domain or use a constant like i did
 if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
@@ -87,22 +100,24 @@ if you want to make your cookie only http defined $httpOnly will be true like i 
 this method will return true or false 
 
 ex : 
-$userInfoArray = array("Password" => 224422 , "Email" => "anyEmail@gmail.com" , "phoneNumber" => "055555555");
+
 define("CokkiesDomain" , "localhost");
 define("CokkiesPath" , "/");
 define("httpsStatus" , false);
 define("CookieshttpOnly" , true);
-SessionManager::setDataInCookieForOneYear($userInfoArray , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
+$expire = strtotime("+1 week");
+SessionManager::setDataInCookieForOneYear("UserEmail" , "anyEmail@gmail.com" , $expire, $CookiePath = "./testFolder" , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly);
 
-now UserEmail 's cookie and UserPassword 's cookie will be saved in http cookie and its expires will be one year
+<b>now UserEmail 's cookie  will be saved in http cookie and its expires will be one week (after 1 week will be removed from cookie array)</b>
+
 <hr>
 
-9- FindDataInCookie($cookieName)
+10 - FindDataInCookie($cookieName)
 this method will find a cookie by its name then return it if it is found else will return null 
 
 <hr>
 
-10 - UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
+11 - UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly)
 this method will find a cookie by its name then remove it
 after process is done method will return true
 $cookieName is the cookie name that you want to remove it
