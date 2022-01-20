@@ -110,13 +110,13 @@ class SessionManager{
      //$cookieName is the cookie's name that we want to set it
      //$cookieValue cookie value that will be stored in $cookieName key
      //$expire value is 1 week by default .... you can use time() or strtotime() buildin methodes to get the value that you want
-     //$CookiePath is "/" by default (CokkiesPath = "/" in config file that come with login system that founded in the same GitHub account)
-     //$domain is "localhost" by default .... type your domain or use a constant like i did
+     //$CookiePath is "/" by default 
+     //$domain is "localhost" by default .... type your domain or use a constant that come from config's file
      //if you have a ssl cerificate $httpsStatus will be true ... here i wrote false
      //if you want to make your cookie only http defined $httpOnly will be true like i did
      //this method will return true or false 
     ///////////////////////////////////////////////////////////////////
-    static public function setDataInCookieForATime($cookieName , $cookieValue , $expire  , $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
+    static public function setDataInCookieForATime($cookieName , $cookieValue , $expire  , $CookiePath = "/" , $domain = "localhost" , $httpsStatus = false , $httpOnly = true){
         $expire = $expire != null ? $expire : strtotime("+1 week"); // as Default 1 week if hasn't been changed
         if(count($_COOKIE) > 0){
             setcookie($cookieName , $cookieValue , $expire , $CookiePath , $domain , $httpsStatus , $httpOnly );
@@ -143,7 +143,7 @@ class SessionManager{
     //$cookieName is the cookie name that you want to remove it
     //other parameters is the same parameters that found in setDataInCookieForATime
     ///////////////////////////////////////////////////////////////////
-    static public function UnsetDataFromCookie($cookieName ,  $CookiePath = CokkiesPath , $domain = CokkiesDomain , $httpsStatus = httpsStatus , $httpOnly = CookieshttpOnly){
+    static public function UnsetDataFromCookie($cookieName ,  $CookiePath = "/" , $domain = "localhost" , $httpsStatus = false , $httpOnly = true){
         if(count($_COOKIE) > 0){
             if (isset($_COOKIE[$cookieName])) {
                 unset($_COOKIE[$cookieName]); 
